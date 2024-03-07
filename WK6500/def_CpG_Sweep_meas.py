@@ -37,6 +37,7 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
         C = V.copy()
         G = V.copy()
         for jj in range(len(Freq_list)):
+
             Freq = Freq_list[jj]
             strM = [str(f) for f in Freq_list]
             for ii in range(len(V_list)):
@@ -61,23 +62,25 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
                 SweepDelay=1e-6
                 time.sleep(SweepDelay)
 
-                if Fig != 0:
-                    plt.close('all')
-                    plt.subplot(1, 2, 1)
-                    plt.plot(V, C)
-                    plt.xlabel('V (V)')
-                    plt.ylabel('C (F)')
-                    plt.legend(strM)
-                    plt.subplot(1, 2, 2)
-                    plt.plot(V, G)
-                    plt.xlabel('V (V)')
-                    plt.ylabel('G (S)')
-                    plt.legend(strM)
 
                 with open(F_res, 'a') as fid:
                     fid.write('{},{},{},{}\n'.format(V[ii, jj], F[ii, jj], C[ii, jj], G[ii, jj]))
 
                 res.append([V[:, jj], F[:, jj], C[:, jj], G[:, jj]])
+        if Fig != 0:
+            plt.close('all')
+            plt.subplot(1, 2, 1)
+            plt.plot(V, C)
+            plt.xlabel('V (V)')
+            plt.ylabel('C (F)')
+            plt.legend(strM)
+            plt.subplot(1, 2, 2)
+            plt.plot(V, G)
+            plt.xlabel('V (V)')
+            plt.ylabel('G (S)')
+            plt.legend(strM)
+            plt.savefig(Fig_res, format='jpeg') # save the figure to file
+
     else:
         V = np.nan * np.ones((len(V_list), len(Freq_list)))
         F = V.copy()
@@ -108,30 +111,28 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
                 SweepDelay=1e-6
                 time.sleep(SweepDelay)
 
-                if Fig != 0:
-                    plt.close('all')
-                    plt.subplot(1, 2, 1)
-                    plt.plot(F, C)
-                    plt.xlabel('F (Hz)')
-                    plt.ylabel('C (F)')
-                    plt.legend(strM)
-                    plt.subplot(1, 2, 2)
-                    plt.plot(F, G)
-                    plt.xlabel('F (Hz)')
-                    plt.ylabel('G (S)')
-                    plt.legend(strM)
 
                 with open(F_res, 'a') as fid:
                     fid.write('{},{},{},{}\n'.format(V[jj, ii], F[jj, ii], C[jj, ii], G[jj, ii]))
 
                 res.append([V[jj, :], F[jj, :], C[jj, :], G[jj, :]])
+        if Fig != 0:
+            plt.close('all')
+            plt.subplot(1, 2, 1)
+            plt.plot(F, C)
+            plt.xlabel('F (Hz)')
+            plt.ylabel('C (F)')
+            plt.legend(strM)
+            plt.subplot(1, 2, 2)
+            plt.plot(F, G)
+            plt.xlabel('F (Hz)')
+            plt.ylabel('G (S)')
+            plt.legend(strM)
+            plt.savefig(Fig_res, format='jpeg') # save the figure to file
 
     v.write(':METER:BIAS 0')
     v.write(':METER:BIAS-STAT OFF')
     v.close()
-
-    if Fig != 0:
-        plt.savefig(Fig_res, format='jpeg')
 
     return res
 if __name__ == '__main__':

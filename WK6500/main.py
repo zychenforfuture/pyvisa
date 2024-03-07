@@ -7,10 +7,10 @@ from def_CpG_Sweep_meas import WK6500B_CpG_Sweep_meas
 import pyvisa
 
 # Name setting
-DevName = 'Sample_0697_3_1k'
+DevName = 'test_max'
 # AC setting
 Level = 30e-3  # AC level
-Speed = 'MED'  # measurement speed: MAXimum; FAST; MEDium; SLOW;
+Speed = 'MAX'  # measurement speed: MAXimum; FAST; MEDium; SLOW;
 
 # Sweep loop (inner loop) and Step Loop (outer loop) in a nested for loop
 SweepLoop = 'v'  # SweepLoop = 'V' or 'F'
