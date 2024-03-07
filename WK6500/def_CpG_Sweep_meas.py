@@ -88,4 +88,3 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
 
     return res
 if __name__ == '__main__':
-    
