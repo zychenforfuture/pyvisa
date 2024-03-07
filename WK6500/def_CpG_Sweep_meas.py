@@ -78,6 +78,53 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
                     fid.write('{},{},{},{}\n'.format(V[ii, jj], F[ii, jj], C[ii, jj], G[ii, jj]))
 
                 res.append([V[:, jj], F[:, jj], C[:, jj], G[:, jj]])
+    else:
+        V = np.nan * np.ones((len(V_list), len(Freq_list)))
+        F = V.copy()
+        C = V.copy()
+        G = V.copy()
+        for jj in range(len(V_list)):
+            Vbias = V_list[jj]
+            strM = [str(f) for f in V_list]
+            for ii in range(len(Freq_list)):
+                Freq = Freq_list[ii]
+                v.write(':METER:BIAS '+str(Vbias))
+                v.write(':METER:FREQ '+str(Freq))
+                v.write(':METER:TRIG ONCE')
+                meter_data = v.read()
+                while meter_data.startswith('No'):
+                    time.sleep(1e-5)
+                    v.write(':METER:TRIG ONCE')
+                    time.sleep(1e-5)
+                    meter_data = v.read()
+                #print(meter_data)
+                CG_str = meter_data.split(',')
+
+                V[jj, ii] = Vbias
+                F[jj, ii] = Freq
+                C[jj, ii] = float(CG_str[0])
+                G[jj, ii] = float(CG_str[1])
+
+                SweepDelay=1e-6
+                time.sleep(SweepDelay)
+
+                if Fig != 0:
+                    plt.close('all')
+                    plt.subplot(1, 2, 1)
+                    plt.plot(F, C)
+                    plt.xlabel('F (Hz)')
+                    plt.ylabel('C (F)')
+                    plt.legend(strM)
+                    plt.subplot(1, 2, 2)
+                    plt.plot(F, G)
+                    plt.xlabel('F (Hz)')
+                    plt.ylabel('G (S)')
+                    plt.legend(strM)
+
+                with open(F_res, 'a') as fid:
+                    fid.write('{},{},{},{}\n'.format(V[jj, ii], F[jj, ii], C[jj, ii], G[jj, ii]))
+
+                res.append([V[jj, :], F[jj, :], C[jj, :], G[jj, :]])
 
     v.write(':METER:BIAS 0')
     v.write(':METER:BIAS-STAT OFF')
