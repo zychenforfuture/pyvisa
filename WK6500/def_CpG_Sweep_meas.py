@@ -50,6 +50,7 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
                     v.write(':METER:TRIG ONCE')
                     time.sleep(1e-5)
                     meter_data = v.read()
+                print(meter_data)
                 CG_str = meter_data.split(',')
 
                 V[ii, jj] = Vbias
