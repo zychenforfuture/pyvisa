@@ -1,0 +1,7 @@
+numpy-1.26.4
+pyvisa-4.10.0
+os
+time
+matplotlib-3.8.3
+scipy-1.12.0
+datetime-5.4
