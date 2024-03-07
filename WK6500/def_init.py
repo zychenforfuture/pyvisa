@@ -18,6 +18,7 @@ def WK6500B_init(Speed, Level):
     v.write(':METER:RANGE AUTO')  # Select the measurement ranging setting: Auto-range
     v.write(':METER:SPEED '+str(Speed))  # Select the measurement ranging setting: Auto-range
     v.write(':METER:LEVEL '+str(Level)+'V')  # Select the equivalent circuit. Parallel circuit.
+    v.write(':METER:BIAS 0')
     v.write(':METER:BIAS-STAT ON')  # Change the state of the selected bias source.
     
     time.sleep(0.1)

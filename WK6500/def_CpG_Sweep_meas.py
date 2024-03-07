@@ -50,7 +50,7 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
                     v.write(':METER:TRIG ONCE')
                     time.sleep(1e-5)
                     meter_data = v.read()
-                print(meter_data)
+                #print(meter_data)
                 CG_str = meter_data.split(',')
 
                 V[ii, jj] = Vbias
@@ -79,7 +79,7 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
 
                 res.append([V[:, jj], F[:, jj], C[:, jj], G[:, jj]])
 
-
+    v.write(':METER:BIAS 0')
     v.write(':METER:BIAS-STAT OFF')
     v.close()
 
@@ -87,4 +87,3 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
         plt.savefig(Fig_res, format='jpeg')
 
     return res
-if __name__ == '__main__':
