@@ -88,4 +88,12 @@ def WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, 
 
     return res
 if __name__ == '__main__':
-    
+    Level = 1
+    Speed = 1
+    V_list = np.linspace(-1, 1, 11)
+    Freq_list = np.logspace(1, 6, 6)
+    DevName = 'WK6500B'
+    SweepLoop = 'v'
+    Fig = 1
+    res = WK6500B_CpG_Sweep_meas(Level, Speed, V_list, Freq_list, DevName, SweepLoop, Fig)
+    print(res)
