@@ -7,18 +7,18 @@ from def_CpG_Sweep_meas import WK6500B_CpG_Sweep_meas
 import pyvisa
 
 # Name setting
-DevName = 'test_max'
+DevName = '3D_CV_3V 100 kHz'
 # AC setting
 Level = 30e-3  # AC level
-Speed = 'MAX'  # measurement speed: MAXimum; FAST; MEDium; SLOW;
+Speed = 'SLOW'  # measurement speed: MAXimum; FAST; MEDium; SLOW;
 
 # Sweep loop (inner loop) and Step Loop (outer loop) in a nested for loop
 SweepLoop = 'v'  # SweepLoop = 'V' or 'F'
 
 # Frequency step settings
 # Freq_list = [1e3, 1e4, 1e5]  # Frequency list
-Fstart = 1e3
-Fstop = 1e3 #Maximum frequency = 1e6
+Fstart = 1e5
+Fstop = 1e5 #Maximum frequency = 1e6
 PointsPerDecade = 1  # number of points per decade
 # frequency list generation with uniform distribution in log scale
 Freq_list = F_list_gen(Fstart, Fstop, PointsPerDecade)
