@@ -30,7 +30,7 @@ Vstop = 3
 Vstep = 0.05  # Must be divisible by Vstop - Vstart, preferably divisible by Vstop
 isHys = 1  # 1, measure hysteresis; 0, no hysteresis
 # voltage list generation
-V_list = V_list_gen(Vstart, Vstop, Vstep, isHys)
+V_list = V_list_gen(Vstop, Vstart, Vstep, isHys)
 print(V_list)
 
 Fig = 1  # 1 to plot 0 none
